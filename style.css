@@ -1,0 +1,38 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+
+html,body{
+    height: 100%;
+    width: 100%;
+}
+
+#main{
+    position: relative;
+    overflow: hidden;
+}
+
+#page{
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+}
+#page1{
+    height: 100vh;
+    width: 100vw;
+    background-color: green;
+}
+#page2 {
+    height: 100vh;
+    width: 100vw;
+    background-color: purple;
+}
+#page3 {
+    height: 100vh;
+    width: 100vw;
+    background-color: powderblue;
+}
+
