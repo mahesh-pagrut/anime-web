@@ -1,18 +1,24 @@
 function locomotive() {
-    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger); // Register ScrollTrigger plugin for animations
+    
+    // Initialize Locomotive Scroll for smooth scrolling
     const locoScroll = new LocomotiveScroll({
-      el: document.querySelector("#main"),
+      el: document.querySelector("#main"), // Select the main container
       smooth: true,
     });
+    
+    // Update ScrollTrigger whenever scrolling occurs
     locoScroll.on("scroll", ScrollTrigger.update);
   
+    // Set up ScrollTrigger proxy to sync with Locomotive Scroll
     ScrollTrigger.scrollerProxy("#main", {
       scrollTop(value) {
         return arguments.length
-          ? locoScroll.scrollTo(value, 0, 0)
-          : locoScroll.scroll.instance.scroll.y;
+          ? locoScroll.scrollTo(value, 0, 0) // Scroll to a specific position
+          : locoScroll.scroll.instance.scroll.y; // Get the current scroll position
       },
   
+      // Define bounding rectangle for scrolling calculations
       getBoundingClientRect() {
         return {
           top: 0,
@@ -21,29 +27,37 @@ function locomotive() {
           height: window.innerHeight,
         };
       },
+      
+      // Set the pinning type based on whether transform is used
       pinType: document.querySelector("#main").style.transform
         ? "transform"
-        : "fixed",
+        : "fixed", 
     });
+  
+    // Ensure Locomotive Scroll updates when ScrollTrigger refreshes
     ScrollTrigger.addEventListener("refresh", () => locoScroll.update());
-    ScrollTrigger.refresh();
+    ScrollTrigger.refresh(); // Refresh all ScrollTrigger instances
   }
-  locomotive();
+  
+  // Call the function to enable smooth scrolling
+  locomotive(); 
 
-const canvas = document.querySelector("canvas");
-const context = canvas.getContext("2d");
+// Select the canvas element and get its 2D rendering context
+const canvas = document.querySelector("canvas"); 
+const context = canvas.getContext("2d"); 
 
+// Set canvas width and height to match window size
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-
+// Update canvas size dynamically when window resizes
 window.addEventListener("resize", function () {
   canvas.width = window.innerWidth; 
   canvas.height = window.innerHeight;
-  render();
-
+  render(); // Redraw canvas content after resizing
 });
 
+// Function to retrieve image file paths based on index
 function files(index) {
   var data = `
   ./male0001.png
@@ -347,42 +361,45 @@ function files(index) {
      ./male0299.png
      ./male0300.png
  `;
-  return data.split("\n")[index];
+  return data.split("\n")[index].trim(); // Split data into an array and return the required index
 }
 
+// Define the total number of frames for animation
 const frameCount = 300;
+const images = []; // Array to hold image elements
+const imageSeq = { frame: 1 }; // Track current frame
 
-const images = [];
-const imageSeq = {
-  frame: 1,
-};
-
+// Load all images and store in array
 for (let i = 0; i < frameCount; i++) {
   const img = new Image();
   img.src = files(i);
   images.push(img);
 }
 
+// Animate frame sequence using GSAP
 gsap.to(imageSeq, {
-  frame: frameCount - 1,
-  snap: "frame",
-  ease: `none`,
+  frame: frameCount - 1, // Animate from frame 1 to last frame
+  snap: "frame", // Snap to integer frames
+  ease: `none`, // No easing for smooth playback
   scrollTrigger: {
-    scrub: 0.15,
-    trigger: `#page>canvas`,
+    scrub: 0.15, // Smooth scrolling effect
+    trigger: `#page>canvas`, // Animation applies to canvas
     start: `top top`,
     end: `600% top`,
-    scroller: `#main`,
+    scroller: `#main`, // Use main container as scroll reference
   },
-  onUpdate: render,
+  onUpdate: render, // Render the current frame
 });
 
+// Ensure first image loads before rendering starts
 images[1].onload = render;
 
+// Function to render the current frame on canvas
 function render() {
   scaleImage(images[imageSeq.frame], context);
 }
 
+// Function to scale and center images on canvas
 function scaleImage(img, ctx) {
   var canvas = ctx.canvas;
   var hRatio = canvas.width / img.width;
@@ -390,7 +407,7 @@ function scaleImage(img, ctx) {
   var ratio = Math.max(hRatio, vRatio);
   var centerShift_x = (canvas.width - img.width * ratio) / 2;
   var centerShift_y = (canvas.height - img.height * ratio) / 2;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous frame
   ctx.drawImage(
     img,
     0,
@@ -403,28 +420,27 @@ function scaleImage(img, ctx) {
     img.height * ratio
   );
 }
-ScrollTrigger.create({
 
-  trigger: "#page>canvas",
-  pin: true,
-  // markers:true,
+// Create a ScrollTrigger instance for pinning canvas
+ScrollTrigger.create({
+  trigger: "#page>canvas", // Target canvas
+  pin: true, // Keep canvas fixed during scroll
   scroller: `#main`,
-//   set start end according to preference
-  start: `top top`,
-  end: `600% top`,
+  start: `top top`, // Start when top of page meets top of viewport
+  end: `600% top`, // End at 600% scroll
 });
 
-
+// Apply ScrollTrigger to different sections to pin them on scroll
 gsap.to("#page1", {
     scrollTrigger:{
         trigger: "#page1",
         start : `top top`,
         end: `bottom top`,
-        markers: true,
-        pin: true,
+        markers: true, // Show scroll markers for debugging
+        pin: true, // Pin the section
         scroller: `#main`
     }
-})
+});
 gsap.to("#page2", {
     scrollTrigger:{
         trigger: "#page2",
@@ -434,7 +450,7 @@ gsap.to("#page2", {
         pin: true,
         scroller: `#main`
     }
-})
+});
 gsap.to("#page3",{
     scrollTrigger:{
         trigger: `#page3`,
@@ -444,5 +460,4 @@ gsap.to("#page3",{
         pin: true,
         scroller: `#main`
     }
-})
-
+});
