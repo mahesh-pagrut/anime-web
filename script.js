@@ -361,7 +361,7 @@ function files(index) {
      ./male0299.png
      ./male0300.png
  `;
-  return data.split("\n")[index].trim(); // Split data into an array and return the required index
+  return data.split("\n")[index]; // Split data into an array and return the required index
 }
 
 // Define the total number of frames for animation
@@ -436,7 +436,7 @@ gsap.to("#page1", {
         trigger: "#page1",
         start : `top top`,
         end: `bottom top`,
-        markers: true, // Show scroll markers for debugging
+      
         pin: true, // Pin the section
         scroller: `#main`
     }
@@ -446,7 +446,7 @@ gsap.to("#page2", {
         trigger: "#page2",
         start : `top top`,
         end: `bottom top`,
-        markers: true,
+       
         pin: true,
         scroller: `#main`
     }
@@ -456,7 +456,7 @@ gsap.to("#page3",{
         trigger: `#page3`,
         start : `top top`,
         end: `bottom top`,
-        markers: true,
+    
         pin: true,
         scroller: `#main`
     }

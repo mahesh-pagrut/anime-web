@@ -1,44 +1,192 @@
+html {
+    scroll-behavior: smooth;
+  }
+
+/* Global Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
 }
 
-html,body{
+html, body {
     height: 100%;
     width: 100%;
 }
 
-#main{
+/* Main Container */
+#main {
     position: relative;
     overflow: hidden;
 }
 
-#page{
+/* Pages */
+#page, #page1, #page2, #page3 {
+    position: relative;
     height: 100vh;
     width: 100vw;
-    background-color: black;
-}
-#page1{
-    height: 100vh;
-    width: 100vw;
-    background-color: green;
-}
-#page2 {
-    height: 100vh;
-    width: 100vw;
-    background-color: purple;
-}
-#page3 {
-    height: 100vh;
-    width: 100vw;
-    background-color: powderblue;
+    background-color: #f1f1f1;
 }
 
-canvas{
+/* Canvas */
+canvas {
     position: relative;
     z-index: 9;
     max-width: 100vw;
     max-height: 100vh;
+}
+
+/* Looping Text */
+#loop {
+    display: flex;
+    position: absolute;
+    top: 25%;
+    height: 35%;
+    width: 100%;
+    overflow: hidden;
+    font-size: 100px;
+    font-family: Gilroy;
+    white-space: nowrap;
+    gap: 50px;
+}
+
+#loop h1 {
+    font-weight: 400;
+    display: inline-block;
+    animation: textLoop 50s linear infinite;
+}
+
+#loop h1 span {
+    -webkit-text-stroke: 3.2px black;
+    color: transparent;
+    font-weight: 500;
+}
+
+@keyframes textLoop {
+    from {
+        transform: translateX(0%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/* Navigation Bar */
+#nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 7%;
+    width: 100%;
+    position: fixed;
+    z-index: 9;
+    padding: 0 30px;
+}
+
+#nav h3 {
+    font-family: Gilroy;
+    font-weight: 400;
+    font-size: 22px;
+}
+
+#nav button {
+    padding: 10px 20px;
+    border-radius: 50px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+}
+
+/* Page Headings */
+#page h3 {
+    position: absolute;
+    top: 58%;
+    left: 2%;
+    font-family: Gilroy;
+    font-weight: 400;
+    color: #7c7c7c;
+}
+
+#page h4 {
+    position: absolute;
+    top: 70%;
+    left: 18%;
+    font-family: Gilroy;
+    font-weight: 500;
+}
+
+/* Page 1 Content */
+#page1 #right-text {
+    position: absolute;
+    top: 30%;
+    left: 10%;
+}
+
+#page1 #right-text h3 {
+    font-weight: 400;
+    color: #7c7c7c;
+}
+
+#page1 #right-text h1,
+#page1 #left-text h1 {
+    font-size: 50px;
+    line-height: 1.5;
+}
+
+#page1 #left-text {
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    text-align: end;
+}
+
+#page1 #left-text h3 {
+    color: #7c7c7c;
+    font-weight: 400;
+}
+
+/* Page 2 Content */
+#page2 #text1 {
+    position: absolute;
+    top: 30%;
+    left: 5%;
+}
+
+#page2 #text1 h3 {
+    color: #7c7c7c;
+    font-weight: 400;
+}
+
+#page2 #text1 h1 {
+    font-size: 60px;
+    line-height: 1.5;
+}
+
+#page2 #text2 {
+    position: absolute;
+    top: 55%;
+    right: 2%;
+    text-align: center;
+}
+
+#page2 #text2 p {
+    color: #7c7c7c;
+    font-weight: 400;
+}
+
+/* Page 3 Content */
+#page3 #text3 {
+    position: absolute;
+    top: 35%;
+    right: 2%;
+    text-align: start;
+}
+
+#page3 #text3 h3 {
+    color: #7c7c7c;
+    font-weight: 350;
+}
+
+#page3 #text3 h1 {
+    font-size: 70px;
 }
